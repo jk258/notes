@@ -73,7 +73,7 @@ function sidebarGuide() {
 			text: '构建工具',
 			collapsible: true,
 			items: [
-				{ text: 'vite', link: '/vite/index' },
+				{ text: 'vite', link: '/构建工具/index' },
 				{ text: 'webpack', link: '/构建工具/webpack5.74.0' },
 				{ text: 'rullop', link: '/构建工具/rollup' },
 			],
