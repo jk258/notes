@@ -1,7 +1,8 @@
 import {defineConfig } from 'vitepress'
 
 export default defineConfig({
-	title: 'notes',
+  title: 'notes',
+  base:'/notes/',
 	head: [['meta', { name: 'theme-color', content: '#3c8772' }]],
 	markdown: {
     headers: {
