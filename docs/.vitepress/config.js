@@ -1,13 +1,17 @@
-import {defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'notes',
-  base:'/notes/',
+	title: 'notes',
+	base: '/notes/',
 	head: [['meta', { name: 'theme-color', content: '#3c8772' }]],
 	markdown: {
-    headers: {
-			level: [2, 3,4],
+		lineNumbers: true,
+		headers: {
+			level: [2, 3, 4],
 		},
+    toc: {
+      includeLevel: [1, 2]
+    },
 	},
 	themeConfig: {
 		nav: [],
@@ -17,9 +21,8 @@ export default defineConfig({
 	},
 })
 
-
 function sidebarGuide() {
-  return [
+	return [
 		{
 			text: 'vue',
 			collapsible: true,
