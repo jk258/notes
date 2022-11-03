@@ -131,9 +131,13 @@ export default defineConfig({
 整个插件就是在 vite 的生命周期的不同阶段去做不同的事情(就是抢在 vite 执行配置文件之前去改写配置文件)<br>
 通过`vite.config.js`返回出去的配置对象以及在插件的`config`生命周期中返回的对象都不是最终的配置对象,vite 会把这几个配置对象进行合并<br>
 
+1. [config](#config-新建plugins-vitealiases-js)
+2. [transformIndexHtml](#transformindexhtml-新建plugins-createhtmlplugin-js)
+3. [configureServer](#configureserver-新建plugins-vitepluginmock-js)
+
 ### 手写 plugins
 
-1. `config`:新建`plugins/ViteAliases.js`
+### `config`:新建`plugins/ViteAliases.js`
 
 ```javascript{32-48}
 import fs from 'fs'
@@ -197,7 +201,7 @@ export default defineConfig({
 })
 ```
 
-2. `transformIndexHtml`:新建`plugins/CreateHtmlPlugin.js`
+### `transformIndexHtml`:新建`plugins/CreateHtmlPlugin.js`
 
 ```javascript
 export default (options) => {
@@ -205,7 +209,6 @@ export default (options) => {
 		transformIndexHtml: {
 			enforce: 'pre',
 			transform: (html, ctx) => {
-				console.log(html)
 				return html.replace(/<%= title %>/g, options.inject.data.title)
 			},
 		},
@@ -230,4 +233,77 @@ export default defineConfig({
 		}),
   ],
 })
+```
+
+### `configureServer`:新建`plugins/VitePluginMock.js`
+
+```javascript
+import fs from 'fs'
+import path from 'path'
+import { pathToFileURL } from 'url'
+async function mockResult() {
+	const mockStat = fs.statSync('mock')
+	const isDirectory = mockStat.isDirectory()
+	if (isDirectory) {
+		const mockUrl = path.resolve(process.cwd(), 'mock/index.js')
+		const result = await import(pathToFileURL(mockUrl).toString()).then((res) => res.default)
+		return result
+	}
+}
+export default () => {
+	return {
+		async configureServer(server) {
+			const mockResults = await mockResult()
+			server.middlewares.use((req, res, next) => {
+				if (req.url == '/api/users') {
+					const mockItem = mockResults.find((mockItem) => mockItem.url === req.url)
+					if (mockItem) {
+						const resData = mockItem.response(req)
+						res.end(JSON.stringify(resData))
+					}
+				} else {
+					next()
+				}
+			})
+		},
+	}
+}
+```
+
+同上在`vite.config.js`使用
+
+## [typescript](https://vitejs.dev/guide/features.html#typescript)
+
+### 准确提示
+
+- 开发在页面展示 ts 报错提示<br>
+  安装`vite-plugin-checker`插件(`npm i vite-plugin-checker -D`)，在`vite.config.ts`引入使用
+
+```ts{2,4}
+import { defineConfig } from 'vite'
+import checker from 'vite-plugin-checker'
+export default defineConfig({
+	plugins: [checker({ typescript: true })],
+})
+```
+
+- build 是提示报错
+
+在 npm 中运行`tsc --noEmit`(vue 为`vue-tsc --noEmit`)，如下`package.json`
+
+```json{3}
+"scripts": {
+  "dev": "vite dev",
+  "build": "tsc --noEmit && vite build",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+```
+### 配置环境变量提示
+新建`env.d.ts`
+```ts
+//三斜线指令
+/// <reference types="vite/client" />
+interface ImportMetaEnv {
+	readonly VITE_PROXY_URL: string
+}
 ```
