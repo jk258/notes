@@ -298,12 +298,79 @@ export default defineConfig({
   "test": "echo \"Error: no test specified\" && exit 1"
 },
 ```
+
 ### 配置环境变量提示
+
 新建`env.d.ts`
+
 ```ts
 //三斜线指令
 /// <reference types="vite/client" />
 interface ImportMetaEnv {
 	readonly VITE_PROXY_URL: string
 }
+```
+
+## 构建优化
+
+### 分包策略
+
+分包就是把一些不会常规更新的文件，进行单独打包处理
+- 配置`manualChunks`
+
+```typescript{6-14}
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+	build: {
+		minify: false,
+		rollupOptions: {
+			output: {
+				manualChunks(id: string) {
+					if (id.includes('node_modules')) {
+						return 'vendor'
+					}
+				},
+			},
+		},
+	},
+})
+```
+- 使用[splitVendorChunkPlugin](https://cn.vitejs.dev/guide/build.html#chunking-strategy)
+```ts
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+
+export default defineConfig({
+	plugins: [splitVendorChunkPlugin()],
+})
+```
+### gzip压缩
+安装[vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression)
+```typescript{2,5}
+import { defineConfig } from 'vite'
+import viteCompression from 'vite-plugin-compression'
+
+export default defineConfig({
+  plugins:[viteCompression()],
+})
+```
+### cdn
+[vite-plugin-compression](https://www.npmjs.com/package/vite-plugin-cdn-import)
+```javascript{2,6-14}
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import importToCDN from 'vite-plugin-cdn-import'
+
+export default defineConfig({
+	plugins: [
+		importToCDN({
+			modules: [
+				{
+					name: 'lodash',
+					var: '_',
+					path: 'https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.core.min.js',
+				},
+			],
+		}),
+	],
+})
 ```
