@@ -1,5 +1,29 @@
 # vite
 
+## 完整配置`vite.config.js`
+
+```javascript
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { fileURLToPath, URL } from 'node:url'
+import viteCompression from 'vite-plugin-compression'
+
+export default defineConfig({
+	plugins: [splitVendorChunkPlugin(), viteCompression()],
+	resolve: {
+		alias: {
+			'@': fileURLToPath(new URL('./src', import.meta.url)),
+		},
+	},
+	css: {
+		//对css的行为进行配置
+		modules: {
+			localsConvention: 'camelCaseOnly',
+		},
+		devSourcemap: true, //css sourcemap ，索引文件
+	},
+})
+```
+
 ## 依赖预约构建
 
 受限 vite 会找到对应的依赖，然后调用**esbuild**(对 js 语法进行处理的一个库)，将其他规范的代码转换成**esmodule**规范，然后放到当前目录下的`node_modules/.vite/deps`，同时对**esmodule**规范的各个模块进行统一集成
@@ -316,6 +340,7 @@ interface ImportMetaEnv {
 ### 分包策略
 
 分包就是把一些不会常规更新的文件，进行单独打包处理
+
 - 配置`manualChunks`
 
 ```typescript{6-14}
@@ -336,7 +361,9 @@ export default defineConfig({
 	},
 })
 ```
+
 - 使用[splitVendorChunkPlugin](https://cn.vitejs.dev/guide/build.html#chunking-strategy)
+
 ```ts
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 
@@ -344,8 +371,11 @@ export default defineConfig({
 	plugins: [splitVendorChunkPlugin()],
 })
 ```
-### gzip压缩
+
+### gzip 压缩
+
 安装[vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression)
+
 ```typescript{2,5}
 import { defineConfig } from 'vite'
 import viteCompression from 'vite-plugin-compression'
@@ -354,8 +384,11 @@ export default defineConfig({
   plugins:[viteCompression()],
 })
 ```
+
 ### cdn
+
 [vite-plugin-compression](https://www.npmjs.com/package/vite-plugin-cdn-import)
+
 ```javascript{2,6-14}
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import importToCDN from 'vite-plugin-cdn-import'
