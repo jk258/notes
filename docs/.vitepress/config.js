@@ -84,7 +84,10 @@ function sidebarGuide() {
 		{
 			text: '其他',
 			collapsible: true,
-			items: [{ text: '问题', link: '其他/问题' }],
+			items: [
+				{ text: '问题', link: '其他/问题' },
+				{ text: '面试题', link: '其他/面试题' }
+			],
 		},
 	]
 }
