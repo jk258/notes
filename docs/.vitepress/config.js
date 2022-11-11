@@ -88,6 +88,13 @@ function sidebarGuide() {
 				{ text: '问题', link: '其他/问题' },
 				{ text: '面试题', link: '其他/面试题' }
 			],
-		},
+    },
+    {
+      text: 'three',
+      collapsible: true,
+      items: [
+        {text: '起步',link:'three/index'}
+      ]
+    }
 	]
 }
