@@ -24,7 +24,7 @@ export default defineConfig({
 		socialLinks: [{ icon: 'github', link: 'https://github.com/jk258/notes' }],
 		algolia: {
 			appId: 'H20UVFWILZ',
-			apiKey: 'ce428e18c9eb1469a8f36ceee9bee907',
+			apiKey: '8c1179bf73f8059a1458a107a73ba2a5',
 			indexName: 'notes',
 		},
 	},
