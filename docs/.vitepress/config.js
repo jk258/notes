@@ -9,15 +9,24 @@ export default defineConfig({
 		headers: {
 			level: [2, 3, 4],
 		},
-    toc: {
-      includeLevel: [1, 2]
-    },
+		toc: {
+			includeLevel: [1, 2],
+		},
 	},
 	themeConfig: {
 		nav: [],
 		cleanUrls: 'without-subfolders',
 		sidebar: sidebarGuide(),
-		socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
+		editLink: {
+			pattern: 'https://github.com/jk258/notes/blob/main/docs/:path',
+			text: 'Edit this page on GitHub',
+		},
+		socialLinks: [{ icon: 'github', link: 'https://github.com/jk258/notes' }],
+		algolia: {
+			appId: 'H20UVFWILZ',
+			apiKey: 'ce428e18c9eb1469a8f36ceee9bee907',
+			indexName: 'notes',
+		},
 	},
 })
 
@@ -86,15 +95,18 @@ function sidebarGuide() {
 			collapsible: true,
 			items: [
 				{ text: '问题', link: '其他/问题' },
-				{ text: '面试题', link: '其他/面试题' }
+				{ text: '面试题', link: '其他/面试题' },
 			],
-    },
-    {
-      text: 'three',
-      collapsible: true,
-      items: [
-        {text: '起步',link:'three/index'}
-      ]
-    }
+		},
+		{
+			text: 'electron',
+			collapsible: true,
+			items: [{ text: '开始', link: 'electron/开始' }],
+		},
+		{
+			text: 'three',
+			collapsible: true,
+			items: [{ text: '起步', link: 'three/index' }],
+		},
 	]
 }
