@@ -90,6 +90,7 @@ function sidebarGuide() {
 			text: '其他',
 			collapsible: true,
 			items: [
+				{ text: '插件', link: '其他/插件' },
 				{ text: '问题', link: '其他/问题' },
 				{ text: '面试题', link: '其他/面试题' },
 			],
