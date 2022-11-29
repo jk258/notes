@@ -40,6 +40,10 @@ function sidebarGuide() {
 					text: 'vue2和vue3的区别',
 					link: '/vue/vue2和vue3的区别',
 				},
+				{
+          text: 'vue3使用工具',
+          link: '/vue/vue3使用工具'
+				},
 			],
 		},
 		{
