@@ -6,7 +6,10 @@ function sidebarEcology() {
 		{
 			text: 'electron',
 			collapsible: true,
-			items: [{ text: '开始', link: '/生态/electron/开始' }],
+			items: [
+				{ text: '开始', link: '/生态/electron/开始' },
+				{ text: '问题', link: '/生态/electron/问题' },
+			],
 		},
 		{
 			text: 'vue',
