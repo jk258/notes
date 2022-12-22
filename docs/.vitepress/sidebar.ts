@@ -12,6 +12,13 @@ function sidebarEcology() {
 			],
 		},
 		{
+			text: 'konva',
+			collapsible: true,
+			items: [
+				{ text: '开始', link: '/生态/konva/开始' },
+			],
+		},
+		{
 			text: 'vue',
 			collapsible: true,
 			items: [
@@ -56,9 +63,10 @@ function sidebarOriginal() {
 			text: 'js相关',
 			collapsible: true,
 			items: [
-				{ text: 'js api', link: '/js相关/js api' },
-				{ text: 'promise', link: '/js相关/promise' },
-				{ text: 'proxy', link: '/js相关/Proxy' },
+				{ text: 'js api', link: '/原生/js相关/js api' },
+				{ text: 'promise', link: '/原生/js相关/promise' },
+				{ text: 'proxy', link: '/原生/js相关/Proxy' },
+				{ text: '设计模式', link: '/原生/js相关/设计模式' },
 			],
 		},
 		{
@@ -74,7 +82,10 @@ function sidebarOriginal() {
 		{
 			text: 'css相关',
 			collapsible: true,
-			items: [{ text: 'css属性', link: '/原生/css相关/css属性' }],
+			items: [
+				{ text: 'css属性', link: '/原生/css相关/css属性' },
+				{ text: '创意构想', link: '/原生/css相关/创意构想' },
+			],
 		},
 		{
 			text: 'node',
