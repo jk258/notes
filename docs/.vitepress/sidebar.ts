@@ -4,6 +4,11 @@
 function sidebarEcology() {
   return [
 		{
+			text: 'pixi',
+			collapsible: true,
+			items: [{ text: '开始', link: '/生态/pixi/开始' }],
+		},
+		{
 			text: 'electron',
 			collapsible: true,
 			items: [
@@ -14,9 +19,7 @@ function sidebarEcology() {
 		{
 			text: 'konva',
 			collapsible: true,
-			items: [
-				{ text: '开始', link: '/生态/konva/开始' },
-			],
+			items: [{ text: '开始', link: '/生态/konva/开始' }],
 		},
 		{
 			text: 'vue',
@@ -127,11 +130,22 @@ function sidebarOther() {
 		},
 	]
 }
+
+function sidebarQuestion() { 
+  return [
+		{
+			text: 'JavaScript',
+			collapsible: true,
+			items: [{ text: 'JavaScript(一)', link: '/面试题/JavaScript/JavaScript(一)' }],
+		},
+	]
+}
 export default function sidebar() {
 	return {
 		'/生态/': sidebarEcology(),
 		'/原生/': sidebarOriginal(),
 		'/构建工具/': sidebarBuildTool(),
 		'/其他/': sidebarOther(),
+		'/面试题/': sidebarQuestion(),
 	}
 }
