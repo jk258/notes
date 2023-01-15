@@ -109,6 +109,7 @@ function sidebarBuildTool() {
 				{ text: 'vite', link: '/构建工具/vite' },
 				{ text: 'webpack', link: '/构建工具/webpack5.74.0' },
 				{ text: 'rullop', link: '/构建工具/rollup' },
+				{ text: 'pnpm workspace 搭建项目', link: '/构建工具/pnpm-workspace搭建项目' },
 			],
 		},
 	]
@@ -142,7 +143,7 @@ function sidebarQuestion() {
 }
 export default function sidebar() {
 	return {
-		'/生态/': sidebarEcology(),
+		'生态': sidebarEcology(),
 		'/原生/': sidebarOriginal(),
 		'/构建工具/': sidebarBuildTool(),
 		'/其他/': sidebarOther(),

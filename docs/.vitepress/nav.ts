@@ -1,3 +1,5 @@
+
+
 export default function nav() {
 	return [
 		{ text: '生态', link: '/生态/vue/开始', activeMatch: '/生态' },
@@ -7,3 +9,5 @@ export default function nav() {
 		{ text: '其他', link: '/其他/插件', activeMatch: '/其他' },
 	]
 }
+
+

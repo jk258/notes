@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
-import nav from './nav'
-import sidebar from './sidebar'
+// import nav from './nav'
+// import sidebar from './sidebar'
+import { getNavSidebar } from './utils'
+const { nav, sidebar }=getNavSidebar()
 
 export default defineConfig({
 	title: 'notes',
@@ -13,8 +15,8 @@ export default defineConfig({
 		},
 	},
 	themeConfig: {
-		nav: nav(),
-		sidebar: sidebar(),
+		nav: nav,
+		sidebar: sidebar,
 		outline: [2, 6],
 		editLink: {
 			pattern: 'https://github.com/jk258/notes/blob/main/docs/:path',
