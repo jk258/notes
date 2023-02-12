@@ -12,7 +12,7 @@ export default defineConfig({
 		lineNumbers: true,
 		headers: {
 			level: [2, 3, 4],
-		},
+    },
 	},
 	themeConfig: {
 		nav: nav,

@@ -1,4 +1,4 @@
-#  css属性
+# css 属性
 
 ## inset 定位
 
@@ -6,7 +6,13 @@ demo：[https://vb84t.csb.app/hiddenPosition.html](https://vb84t.csb.app/hiddenP
 文档：[https://developer.mozilla.org/en-US/docs/Web/CSS/Inset](https://developer.mozilla.org/en-US/docs/Web/CSS/Inset)
 
 ```html
-.box { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); }
+<style>
+	.box {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+	}
+</style>
 <div class="box">inset定位</div>
 ```
 
@@ -17,10 +23,32 @@ demo：[https://vb84t.csb.app/hiddenPosition.html](https://vb84t.csb.app/hiddenP
 **进度条**
 
 ```html
-.progress-outer { width: 60%; height: 12px; border-radius: 8px; overflow: hidden; position: relative; } .progress-enter { height: inherit; background:
-rgba(180, 160, 120, 0.2); } .progress-bg { width: 60%; height: inherit; border-radius: 6px; background: repeating-linear-gradient(-45deg, #d9cfbb 25%,
-#c3b393 0, #c3b393 50%, #d9cfbb 0, #d9cfbb 75%, #c3b393 0); background-size: 16px 16px; animation: panoramic 20s linear infinite; } @keyframes
-panoramic { to { background-position: 200% 0; } }
+<style>
+	.progress-outer {
+		width: 60%;
+		height: 12px;
+		border-radius: 8px;
+		overflow: hidden;
+		position: relative;
+	}
+	.progress-enter {
+		height: inherit;
+		background: rgba(180, 160, 120, 0.2);
+	}
+	.progress-bg {
+		width: 60%;
+		height: inherit;
+		border-radius: 6px;
+		background: repeating-linear-gradient(-45deg, #d9cfbb 25%, #c3b393 0, #c3b393 50%, #d9cfbb 0, #d9cfbb 75%, #c3b393 0);
+		background-size: 16px 16px;
+		animation: panoramic 20s linear infinite;
+	}
+	@keyframes panoramic {
+		to {
+			background-position: 200% 0;
+		}
+	}
+</style>
 <div class="progress-outer">
 	<div class="progress-enter">
 		<div class="progress-bg"></div>
@@ -31,11 +59,32 @@ panoramic { to { background-position: 200% 0; } }
 ## 齿轮背景
 
 ```html
-.coupon-card { width: 200px; height: 120px; background-image: radial-gradient(circle at 100px -8px, transparent 20px, #b4a078 21px); position:
-relative; } .coupon-card::after { content: ''; width: 100%; height: 15px; background: linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, 1)
-75%) 0 0, linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, 1) 75%) 0 0, linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, 1)
-75%) 7px -15px, linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, 1) 75%) 7px -15px, transparent; background-size: 15px 30px; position:
-absolute; left: 0; bottom: 0; }
+<style>
+	.coupon-card {
+		width: 200px;
+		height: 120px;
+		background-image: radial-gradient(circle at 100px -8px, transparent 20px, #b4a078 21px);
+		position: relative;
+	}
+	.coupon-card::after {
+		content: '';
+		width: 100%;
+		height: 15px;
+		background: linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, 1) 75%) 0 0, linear-gradient(
+					245deg,
+					transparent 75%,
+					rgba(255, 255, 255, 1) 75%
+				) 0 0, linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, 1) 75%) 7px -15px, linear-gradient(
+					245deg,
+					transparent 75%,
+					rgba(255, 255, 255, 1) 75%
+				) 7px -15px, transparent;
+		background-size: 15px 30px;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}
+</style>
 <div class="coupon-card"></div>
 ```
 
@@ -53,7 +102,14 @@ counters 嵌套计数器
 文档：[https://developer.mozilla.org/zh-CN/docs/Web/CSS/counters()](<https://developer.mozilla.org/zh-CN/docs/Web/CSS/counters()>)
 
 ```html
-.counter { counter-increment: my; } .counter::after { content: counters(my, '-'); }
+<style>
+	.counter {
+		counter-increment: my;
+	}
+	.counter::after {
+		content: counters(my, '-');
+	}
+</style>
 <p class="counter">counter:test</p>
 <p class="counter">test</p>
 <p class="counter">test</p>
@@ -68,27 +124,49 @@ counters 嵌套计数器
 
 ## clip-path
 
-clip-path: polygon(41% 0%, 100% 0%, 75% 100%, 0% 100%);//多边形
+```css
+clip-path: polygon(41% 0%, 100% 0%, 75% 100%, 0% 100%); //多边形
+```
 
 ## 滚动阴影（background-attachment）
 
 ```html
-.scroll-shadows { max-height: 200px; overflow: auto; -webkit-overflow-scrolling: touch; overflow-scrolling: touch; background: linear-gradient(white
-30%,rgba(255, 255, 255, 0)) center top, linear-gradient(rgba(255, 255, 255, 0), white 70%) center bottom, radial-gradient(farthest-side at 50%
-0,rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0)) center top, radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)) center bottom;
-background-repeat: no-repeat; background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px; background-attachment: local, local, scroll, scroll; }
+<style>
+	.scroll-shadows {
+		max-height: 200px;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		overflow-scrolling: touch;
+		background: linear-gradient(white 30%, rgba(255, 255, 255, 0)) center top, linear-gradient(rgba(255, 255, 255, 0), white 70%) center bottom,
+			radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)) center top, radial-gradient(
+					farthest-side at 50% 100%,
+					rgba(0, 0, 0, 0.2),
+					rgba(0, 0, 0, 0)
+				) center bottom;
+		background-repeat: no-repeat;
+		background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+		background-attachment: local, local, scroll, scroll;
+	}
+</style>
 <ul class="scroll-shadows"></ul>
 ```
 
 ## css 变量
 
-```html
-:root{ --color:red; --size:14px; } .test{ color: var(--color); font-size: var(--size); }
+```css
+:root {
+	--color: red;
+	--size: 14px;
+}
+.test {
+	color: var(--color);
+	font-size: var(--size);
+}
 ```
 
 ## 修改 css 变量
 
-```html
+```javascript
 const test=document.querySelector('.test') window.getComputedStyle(test).getPropertyValue('color').trim() //获取属性
 document.body.style.setProperty('--color','blue')//设置css变量
 ```
