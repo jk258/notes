@@ -1,152 +1,41 @@
-/**
- * 生态
- */
-function sidebarEcology() {
-  return [
-		{
-			text: 'pixi',
-			collapsible: true,
-			items: [{ text: '开始', link: '/生态/pixi/开始' }],
-		},
-		{
-			text: 'electron',
-			collapsible: true,
-			items: [
-				{ text: '开始', link: '/生态/electron/开始' },
-				{ text: '问题', link: '/生态/electron/问题' },
-			],
-		},
-		{
-			text: 'konva',
-			collapsible: true,
-			items: [{ text: '开始', link: '/生态/konva/开始' }],
-		},
-		{
-			text: 'vue',
-			collapsible: true,
-			items: [
-				{
-					text: '开始',
-					link: '/生态/vue/开始',
-				},
-				{
-					text: 'vue2和vue3的区别',
-					link: '/生态/vue/vue2和vue3的区别',
-				},
-				{
-					text: 'vue3使用工具',
-					link: '/生态/vue/vue3使用工具',
-				},
-			],
-		},
-		{
-			text: 'react',
-			collapsible: true,
-			items: [{ text: 'vite+react项目', link: '/生态/react/vite+react项目' }],
-		},
+import fs from 'fs'
+import path from 'path'
+import { DefaultTheme } from 'vitepress'
+import nav from './nav'
 
-		{
-			text: 'three',
-			collapsible: true,
-			items: [{ text: '起步', link: '/生态/three/index' }],
-		},
-		{
-			text: 'nestjs',
-			collapsible: true,
-			items: [{ text: 'nestjs', link: '/生态/nestjs/nestjs' }],
-		},
-	]
-}
-/**
- * 原生
- */
-function sidebarOriginal() {
-	return [
-		{
-			text: 'js相关',
-			collapsible: true,
-			items: [
-				{ text: 'js api', link: '/原生/js相关/js api' },
-				{ text: 'promise', link: '/原生/js相关/promise' },
-				{ text: 'proxy', link: '/原生/js相关/Proxy' },
-				{ text: '设计模式', link: '/原生/js相关/设计模式' },
-			],
-		},
-		{
-			text: 'ts相关',
-			collapsible: true,
-			items: [
-				{
-					text: 'typescript',
-					link: '/原生/ts相关/TypeScript',
-				},
-			],
-		},
-		{
-			text: 'css相关',
-			collapsible: true,
-			items: [
-				{ text: 'css属性', link: '/原生/css相关/css属性' },
-				{ text: '创意构想', link: '/原生/css相关/创意构想' },
-			],
-		},
-		{
-			text: 'node',
-			collapsible: true,
-			items: [],
-		},
-	]
-}
-/**
- *构建工具 
- */
-function sidebarBuildTool() {
-	return [
-		{
-			text: '构建工具',
-			collapsible: true,
-			items: [
-				{ text: 'vite', link: '/构建工具/vite' },
-				{ text: 'webpack', link: '/构建工具/webpack5.74.0' },
-				{ text: 'rullop', link: '/构建工具/rollup' },
-				{ text: 'pnpm workspace 搭建项目', link: '/构建工具/pnpm-workspace搭建项目' },
-			],
-		},
-	]
-}
-/**
- * 其他 
- */
-function sidebarOther() {
-	return [
-		{
-			text: '其他',
-			collapsible: true,
-			items: [
-				{ text: '插件', link: '其他/插件' },
-				{ text: '问题', link: '其他/问题' },
-				{ text: '面试题', link: '其他/面试题' },
-				{ text: 'js手写题', link: '其他/js手写题' },
-			],
-		},
-	]
+function generateSidenav(dir: string) {
+  const navDir = fs.readdirSync(path.join(__dirname, `../${dir}`))
+	return navDir.reduce((pre, item) => {
+		const url = path.join(__dirname, `../${dir}/${item}`)
+		const isDirectory = fs.statSync(url).isDirectory()
+
+		if (isDirectory) {
+			const sideDir = fs.readdirSync(url)
+			pre.push({
+				text: item,
+				collapsible: true,
+				items: sideDir.reduce((pre, side) => {
+					const text = side.split('.md')[0]
+					if (side.lastIndexOf('.md') > 0) {
+						pre.push({ text: text, link: `${dir}/${item}/${text}` })
+					}
+					return pre
+				}, [] as DefaultTheme.SidebarItem[]),
+			})
+		} else {
+			const text = item.split('.md')[0]
+			let sideBar = pre.find((item) => item.text == dir)
+			if (!sideBar) {
+				sideBar = { text: dir, collapsible: true, items: [] }
+				pre.push(sideBar)
+			}
+			sideBar.items.push({ text: text, link: `${dir}/${text}` })
+		}
+		return pre
+	}, [] as DefaultTheme.SidebarGroup[])
 }
 
-function sidebarQuestion() { 
-  return [
-		{
-			text: 'JavaScript',
-			collapsible: true,
-			items: [{ text: 'JavaScript(一)', link: '/面试题/JavaScript/JavaScript(一)' }],
-		},
-	]
-}
-export default function sidebar() {
-	return {
-		'生态': sidebarEcology(),
-		'/原生/': sidebarOriginal(),
-		'/构建工具/': sidebarBuildTool(),
-		'/其他/': sidebarOther(),
-		'/面试题/': sidebarQuestion(),
-	}
-}
+export const sidebar = nav.reduce((pre, item) => {
+	pre[item.text as string] = generateSidenav(item.text)
+	return pre
+}, {} as DefaultTheme.SidebarMulti)

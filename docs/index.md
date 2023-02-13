@@ -1,4 +1,9 @@
-* [生态](/生态/vue/开始)
-* [原生](/原生/js相关/js%20api)
-* [构建工具](/构建工具/vite)
-* [其他](/其他/插件)
+
+<script setup>
+  import nav from './.vitepress/nav.ts'
+</script>
+<ul>
+  <li v-for="(item,index) in nav" :key="item.link">
+    <a :href="item.link">{{item.text}}</a>
+  </li>
+</ul>

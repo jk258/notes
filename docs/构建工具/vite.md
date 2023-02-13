@@ -1,11 +1,11 @@
 # vite
 
-## 完整配置`vite.config.js`
+## 常用配置`vite.config.js`
 
 ```javascript
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'//splitVendorChunkPlugin分包
 import { fileURLToPath, URL } from 'node:url'
-import viteCompression from 'vite-plugin-compression'
+import viteCompression from 'vite-plugin-compression'//gzip压缩
 
 export default defineConfig({
 	plugins: [splitVendorChunkPlugin(), viteCompression()],

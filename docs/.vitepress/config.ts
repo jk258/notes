@@ -1,8 +1,6 @@
 import { defineConfig } from 'vitepress'
-// import nav from './nav'
-// import sidebar from './sidebar'
-import { getNavSidebar } from './utils'
-const { nav, sidebar }=getNavSidebar()
+import nav from './nav'
+import { sidebar } from './sidebar'
 
 export default defineConfig({
 	title: 'notes',
