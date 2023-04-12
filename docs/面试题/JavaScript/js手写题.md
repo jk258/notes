@@ -87,7 +87,7 @@ function newOperator(ctor, ...args) {
 ```javascript
 function curry(fn, args) {
   var length = fn.length;
-  var args = args || [];
+  let newArgs = args || [];
   return function () {
     newArgs = args.concat(Array.prototype.slice.call(arguments));
     if (newArgs.length < length) {
