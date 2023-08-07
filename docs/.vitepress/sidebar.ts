@@ -13,7 +13,7 @@ function generateSidenav(dir: string) {
 			const sideDir = fs.readdirSync(url)
 			pre.push({
 				text: item,
-				collapsible: true,
+				collapsed: false,
 				items: sideDir.reduce((pre, side) => {
 					const text = side.split('.md')[0]
 					if (side.lastIndexOf('.md') > 0) {
@@ -26,13 +26,13 @@ function generateSidenav(dir: string) {
 			const text = item.split('.md')[0]
 			let sideBar = pre.find((item) => item.text == dir)
 			if (!sideBar) {
-				sideBar = { text: dir, collapsible: true, items: [] }
-				pre.push(sideBar)
+				sideBar = { text: dir, collapsed: false, items: [] }
+				pre.push(sideBar!)
 			}
-			sideBar.items.push({ text: text, link: `${dir}/${text}` })
+			sideBar.items!.push({ text: text, link: `${dir}/${text}` })
 		}
 		return pre
-	}, [] as DefaultTheme.SidebarGroup[])
+	}, [] as DefaultTheme.SidebarItem[])
 }
 
 export const sidebar = nav.reduce((pre, item) => {
