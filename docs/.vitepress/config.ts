@@ -19,7 +19,10 @@ export default defineConfig({
 		editLink: {
 			pattern: 'https://github.com/jk258/notes/blob/main/docs/:path',
 			text: 'Edit this page on GitHub',
-		},
+    },
+    search: {
+      provider: 'local'
+    },
 		socialLinks: [{ icon: 'github', link: 'https://github.com/jk258/notes' }],
 	},
 })
