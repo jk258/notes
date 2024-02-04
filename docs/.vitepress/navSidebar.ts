@@ -2,7 +2,7 @@ import { DefaultTheme } from 'vitepress'
 import fs from 'fs'
 import path from 'path'
 
-const rootPath = path.join(__dirname, '..')
+const rootPath = path.join(__dirname, '../')
 
 /**
  * 判断是否为文件夹
@@ -27,10 +27,10 @@ function getSidebarItem(sidePath: string, curPath: string) {
 	if (isDirectory(sidebarPath)) {
 		const files = fs.readdirSync(sidebarPath)
 		return {
-      text: curPath.replace(/^[\d\.-]+/, ''),
-      collapsed:true,
+			text: curPath.replace(/^[\d\.-]+/, ''),
+			collapsed: true,
 			items: files.reduce((pre, file) => {
-        if (!sidebarFilter(file)) {
+				if (!sidebarFilter(file)) {
 					const items = getSidebarItem(sidebarPath, file)
 					if (items) {
 						pre.push(items)
@@ -40,12 +40,12 @@ function getSidebarItem(sidePath: string, curPath: string) {
 			}, [] as DefaultTheme.SidebarItem[]),
 		}
 	} else {
-    if (!sidebarFilter(curPath)) {
-      return {
+		if (!sidebarFilter(curPath)) {
+			return {
 				text: curPath.replace(/^[\d\.-]+/, '').replace(/\.md$/g, ''),
-				link: `${sidePath.split('\\docs')[1].replace(/[\\\\]/g, '/')}/${curPath.replace(/\.md/g, '')}`,
+				link: `${sidePath.replace(/[\\\\]/g, '/').split('/docs/')[1]}/${curPath.replace(/\.md/g, '')}`,
 			}
-    }
+		}
 	}
 }
 /**
