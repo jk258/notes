@@ -2,6 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm install
-npm run build
+npm run docs:build
 
 scp -r ./docs/vitepress/dist root@101.43.253.98:/data/note/jimo-note
