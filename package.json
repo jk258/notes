@@ -6,7 +6,8 @@
 		"docs:preview": "vitepress preview docs"
 	},
 	"devDependencies": {
-		"vitepress": "^1.0.0-rc.40",
-		"@types/node": "^20.11.13"
+		"@types/node": "^20.11.13",
+		"husky": "^9.0.10",
+		"vitepress": "^1.0.0-rc.40"
 	}
 }
