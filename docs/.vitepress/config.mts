@@ -5,7 +5,7 @@ const {nav,sidebar} = navSidebar()
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	title: '即墨',
-	description: 'note',
+  description: 'note',
 	markdown: {
 		lineNumbers: true,
 		headers: {
@@ -24,6 +24,6 @@ export default defineConfig({
 			provider: 'local',
 		},
 
-		socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/jk258/notes' }],
 	},
 })

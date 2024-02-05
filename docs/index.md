@@ -13,7 +13,7 @@ hero:
       link: ./前端/1-构建工具/docker
     - theme: alt
       text: View on GitHub
-      link: https://github.com/vuejs/vitepress
+      link: https://github.com/jk258/notes
 
 features:
   - icon: ⚡️
