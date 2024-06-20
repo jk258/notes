@@ -22,7 +22,10 @@ npm run start:dev //监听文件更改
 ```
 
 ## nest-cli
-
+nest生成curd模块，`—no-spec` 代表是否生成测试文件
+```
+nest g res modules/category --no-spec
+```
 ## 命令
 
 ### nest g
