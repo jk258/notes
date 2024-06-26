@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: ./前端/1-构建工具/docker
+      link: ./前端/1-工具/docker
     - theme: alt
       text: View on GitHub
       link: https://github.com/jk258/notes

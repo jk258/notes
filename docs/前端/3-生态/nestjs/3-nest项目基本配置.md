@@ -35,7 +35,7 @@ async function bootstrap() {
 }
 ```
 
-# 配置验证
+## 配置验证
 
 安装[class-validator](https://github.com/typestack/class-validator)
 
@@ -43,7 +43,7 @@ async function bootstrap() {
 npm i --save class-validator class-transformer
 ```
 
-向 dto 中添加一些装饰器，如下
+向 `dto` 中添加一些装饰器，如下
 
 ```typescript
 import { IsString, IsInt } from 'class-validator'
@@ -170,7 +170,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
 	}
 }
 ```
+
 在`main.ts`注册
+
 ```typescript{3}
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, { cors: true })
@@ -178,12 +180,134 @@ async function bootstrap() {
 	await app.listen(3000)
 }
 ```
+
 ## swagger 文档
+
 安装
+
 ```shell
 npm install --save @nestjs/swagger swagger-ui-express
 ```
 
+在`main.ts`配置`swagger`并统一返回格式
+
+```ts
+function docs(app) {
+	const options = new DocumentBuilder().setTitle('导航').setDescription('导航网站').setVersion('1.0').addTag('导航').build()
+	const document = SwaggerModule.createDocument(app, options)
+	for (const path of Object.keys(document.paths)) {
+		const pathItem = document.paths[path]
+		if (!pathItem) {
+			continue
+		}
+		for (const method of Object.keys(pathItem)) {
+			const responses = document.paths[path][method].responses
+			if (!responses) {
+				continue
+			}
+			for (const status of Object.keys(responses)) {
+				const json = responses[status].content?.['application/json']
+				if (!json) {
+					responses[status].content = {
+						'application/json': {
+							schema: {
+								$ref: '#/components/schemas/Response',
+							},
+						},
+					}
+					continue
+				}
+				const schema = json.schema
+				json.schema = {
+					allOf: [
+						{
+							$ref: '#/components/schemas/Response',
+						},
+						{
+							type: 'object',
+							properties: {
+								data: schema,
+							},
+							required: ['data'],
+						},
+					],
+				}
+			}
+		}
+	}
+
+	document.components.schemas.Response = {
+		type: 'object',
+		properties: {
+			code: {
+				type: 'integer',
+				description: '状态码',
+				example: 200,
+				format: 'int32',
+			},
+			message: {
+				type: 'string',
+				description: '提示信息',
+				example: '请求成功',
+			},
+		},
+		required: ['code', 'message'],
+	}
+	SwaggerModule.setup('docs', app, document)
+}
+```
+
+`swagger`文档如下
+
+```typescript{8,13-18,26-32}
+import { Controller, HttpStatus, Post,HttpCode, Request, UseGuards, Body, Get } from '@nestjs/common'
+import { AuthService } from './auth.service'
+import { AuthGuard } from './auth.guard'
+import { Public } from '@/common/decorators/index.decorator'
+import { AuthDto, LoginResponse } from './dto/auth.dto'
+import {  ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+
+@ApiTags('用户认证')
+@Controller('auth')
+export class AuthController {
+	constructor(private authService: AuthService) {}
+
+  @ApiOperation({ summary: '登录' })
+  @ApiResponse({
+    status: 200,
+    type: LoginResponse,
+    description: '返回登录信息'
+  })
+	@HttpCode(HttpStatus.OK)
+	@Post('login')
+	@Public()
+	signIn(@Body() signInDto: AuthDto) {
+		return this.authService.signIn(signInDto.username, signInDto.password)
+	}
+
+	@ApiOperation({ summary: '获取用户信息' })
+	@ApiHeader({
+		name: 'authorization',
+		description: '用户token',
+		example: 'Bearer token',
+		required: true,
+	})
+	@UseGuards(AuthGuard)
+	@Get('profile')
+	getProfile(@Request() req) {
+		return req.user
+	}
+}
+```
+
+`LoginResponse`如下：
+
+```typescript
+export class LoginResponse {
+	@ApiProperty({ description: '用户token' })
+	access_token: string
+}
+```
 
 ## 添加配置
 
@@ -191,4 +315,81 @@ npm install --save @nestjs/swagger swagger-ui-express
 
 ```shell
 npm i --save @nestjs/config
+```
+在`app.module.ts`中初始化
+```typescript{6,10-13}
+import { Module } from '@nestjs/common'
+import { join } from 'path'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { ConfigModule } from '@nestjs/config'
+
+@Module({
+	imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
+	],
+	controllers: [AppController],
+	providers: [AppService],
+})
+export class AppModule {}
+
+```
+在`.env`里注册变量
+
+```
+AUTH_SECRET=*****
+```
+
+在模块中使用
+
+```typescript{1,7-16}
+import { ConfigService } from '@nestjs/config'
+...
+import { JwtModule } from '@nestjs/jwt';
+
+@Module({
+  imports: [
+    JwtModule.registerAsync({
+      useFactory: async (configService: ConfigService) => {
+        return {
+					secret: configService.get<string>('AUTH_SECRET'),
+					global: true,
+					signOptions: { expiresIn: '60s' },
+				}
+      },
+      inject: [ConfigService],
+		}),
+	],
+	...
+})
+export class AuthModule {}
+```
+
+## 静态服务
+安装包`@nestjs/serve-static`
+```bash
+npm install --save @nestjs/serve-static
+```
+将`ServeStaticModule` 导入根 `AppModule`，并通过将配置对象传递给 forRoot() 方法来配置它
+```TypeScript{4,9-11}
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
+@Module({
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
 ```
