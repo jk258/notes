@@ -25,7 +25,7 @@ function sidebarFilter(moduleName: string) {
 function getSidebarItem(sidePath: string, curPath: string) {
 	const sidebarPath = path.join(sidePath, curPath)
 	if (isDirectory(sidebarPath)) {
-		const files = fs.readdirSync(sidebarPath)
+    const files = fs.readdirSync(sidebarPath)
 		return {
 			text: curPath.replace(/^[\d\.-]+/, ''),
 			collapsed: true,
@@ -79,6 +79,6 @@ export function navSidebar() {
 	const sidebar = getSidebar(navDirs)
 
 	const nav = Object.keys(sidebar).map((i) => ({ text: i, link: flatFirst(sidebar[i]) }))
-
+  
 	return { sidebar, nav }
 }
