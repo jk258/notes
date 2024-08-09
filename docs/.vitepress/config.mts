@@ -5,11 +5,18 @@ const {nav,sidebar} = navSidebar()
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	title: '即墨',
-  description: 'note',
+	description: 'note',
 	markdown: {
 		lineNumbers: true,
 		headers: {
 			level: [2, 3, 4],
+		},
+		config(md) {
+			const defaultCodeInline = md.renderer.rules.code_inline!
+			md.renderer.rules.code_inline = (tokens, idx, options, env, self) => {
+				tokens[idx].attrSet('v-pre', '')
+				return defaultCodeInline(tokens, idx, options, env, self)
+			}
 		},
 	},
 	themeConfig: {
@@ -24,6 +31,6 @@ export default defineConfig({
 			provider: 'local',
 		},
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/jk258/notes' }],
+		socialLinks: [{ icon: 'github', link: 'https://github.com/jk258/notes' }],
 	},
 })
