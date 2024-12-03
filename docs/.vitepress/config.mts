@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { vitepressDemoPlugin } from 'vitepress-demo-plugin' 
 import { navSidebar } from './navSidebar'
 const {nav,sidebar} = navSidebar()
 
@@ -11,7 +12,8 @@ export default defineConfig({
 		headers: {
 			level: [2, 3, 4],
 		},
-		config(md) {
+    config(md) {
+      md.use(vitepressDemoPlugin) 
 			const defaultCodeInline = md.renderer.rules.code_inline!
 			md.renderer.rules.code_inline = (tokens, idx, options, env, self) => {
 				tokens[idx].attrSet('v-pre', '')
