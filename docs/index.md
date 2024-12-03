@@ -17,8 +17,8 @@ hero:
 
 features:
   - icon: ⚡️
-    title: python
-    details: 教程、生态
+    title: 后端
+    details: go、python、nodejs
   - icon: 🖖
     title: 前端
     details: 构建、生态

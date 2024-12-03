@@ -1,5 +1,7 @@
-文档：[https://rollupjs.org/guide/en/](https://rollupjs.org/guide/en/)
 # rollup.config.js
+
+文档：[https://rollupjs.org/guide/en/](https://rollupjs.org/guide/en/)
+
 ```javascript
 
 import json from 'rollup-plugin-json'

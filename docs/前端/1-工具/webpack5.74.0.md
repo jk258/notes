@@ -3,7 +3,7 @@
 
 首先创建一个目录，初始化`npm`,然后安装`webpck-cli`
 
-```json
+```sh
 mkdir webpack-demo
 cd webpack-demo
 npm init -y
@@ -12,7 +12,7 @@ npm install webpack webpack-cli --save-dev
 
 创建目录、文件和内容
 
-```json
+```
  webpack-demo
   |- package.json
   |- package-lock.json
@@ -65,7 +65,7 @@ module.exports = {
 
 添加 loader（`style-loader`、`css-loader`）
 
-```javascript
+```sh
 npm install --save-dev style-loader css-loader
 ```
 
@@ -126,7 +126,7 @@ module.exports = {
 
 此外，加载的有用资源还有数据，如 JSON 文件，CSV、TSV 和 XML。类似 Nodejs，JSON 是内置的，但是要导入 CSV、TSV 和 XML，可以使用`[csv-loader](https://github.com/theplatapi/csv-loader)`和`[xml-loader](https://github.com/gisikw/xml-loader)`。
 
-```javascript
+```sh
 npm install --save-dev csv-loader xml-loader
 ```
 
@@ -174,7 +174,7 @@ module.exports = {
 
 安装插件[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)，并调整`webpack.config.js`文件
 
-```javascript
+```sh
 npm install --save-dev html-webpack-plugin
 ```
 
@@ -277,7 +277,7 @@ webpack 提供集中可选方式，在代码发生变化时自动编译代码
 
 `webpack-dev-server`提供一个基本的 web server。并且具有 live reloading（实时重新加载）
 
-```javascript
+```sh
 npm install --save-dev webpack-dev-server
 ```
 
@@ -301,7 +301,7 @@ Tip
 添加一个可以直接运行 dev server 的 script：
 package.json
 
-```javascript
+```json
 {
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -319,7 +319,7 @@ package.json
 `webpack-dev-middleware`是一个封装器（wrapper），它可以把 webpack 处理过的文件发送到一个 server。`webpack-dev-server`在内部使用了它，然而它也可以作为一个单独的 package 来使用，以便根据需求进行更多自定义配置。如下（webpack-dev-middleware 配合 express server）：
 安装`express`和`webpack-dev-middleware`
 
-```javascript
+```sh
 npm install --save-dev express webpack-dev-middleware
 ```
 
@@ -372,7 +372,7 @@ app.listen(3000, function () {
 
 添加 npm script，package.json 如下
 
-```javascript
+```json
 {
 	"scripts": {
      "test": "echo \"Error: no test specified\" && exit 1",
@@ -723,13 +723,13 @@ Terser 在执行 Tree Shaking 时，会保留存在副作用的代码，而不�
 development(开发环境)和 production(生产环境)这两个环境下的构建目标存在这巨大差异。由于要遵循逻辑分离，通常建议为每个环境编写彼此独立的 webpack 配置
 以上，我们将生产环境和开发环境做了细微区分，但是，我们还是会遵循不重复原则，保留一个“common(通用)”配置。为了将这些配置合并在一起，将使用`webpack-merge`，此工具会引用“common”配置,安装
 
-```javascript
+```sh
 npm install --save-dev webpack-merge
 ```
 
 创建配置文件如下：
 
-```javascript
+```
 webpack-demo
   |- package.json
   |- package-lock.json
@@ -1039,7 +1039,7 @@ module.exports = {
 
 添加 workbox-webpack-plugin 插件
 
-```javascript
+```sh
 npm install workbox-webpack-plugin --save-dev
 ```
 

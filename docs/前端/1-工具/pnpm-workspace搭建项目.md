@@ -2,7 +2,7 @@
 
 ## 安装 pnpm
 
-```javascript
+```sh
 npm i -g pnpm
 pnpm init
 ```
@@ -11,7 +11,7 @@ pnpm init
 
 新建`pnpm-workspace.yaml`
 
-```
+```yaml
 packages:
   # all packages in direct subdirs of packages/
   - 'packages/*'
@@ -23,7 +23,7 @@ packages:
 ## 定义开发规范
 ### 代码规范检查与修复(eslint)
 安装并初始化
-```
+```sh
 pnpm i eslint -D -w
 npx eslint --init -w
 ```
@@ -60,7 +60,7 @@ pnpm i @typescript-eslint/eslint-plugin @typescript-eslint/parser typescript -D 
 :::
 ### 代码风格: prettier
 安装
-```
+```sh
 pnpm i prettier -D -w
 ```
 添加配置`.prettierrc.json`
@@ -94,24 +94,24 @@ pnpm i prettier -D -w
 将`prettier`集成到`eslint`中,其中
 * `eslint-config-prettier`：覆盖`ESLint`本身的规则配置
 * `eslint-plugin-prettier`：用`Prettier`来接管修复代码即`eslint --fix`
-```
+```sh
 pnpm i eslint-config-prettier eslint-plugin-prettier -D -w
 ```
 为`lint`增加对应的执行脚本
-```
+```sh
 "lint": "eslint --ext .ts,.jsx,.tsx --fix --quiet ./packages"
 ```
 ### commit规范检查
 安装`husky`,用于拦截commit命令
-```
+```sh
 pnpm i husky -D -w
 ```
 初始化`husky`
-```
+```sh
 npx husky install
 ```
 将格式化命令`pnpm lint`纳入commit时`husky`执行的脚本
-```
+```sh
 npx husky add .husky/pre-commit "pnpm lint"
 ```
 ::: warning
@@ -129,7 +129,7 @@ module.exports = {
 }; 
 ```
 集成到`husky`中
-```
+```sh
 npx husky add .husky/commit-msg "npx --no-install commitlint -e $HUSKY_GIT_PARAMS"
 ```
 conventional规范集意义：
