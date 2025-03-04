@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm install
-npm run docs:build
+# npm install
+# npm run docs:build
 
-scp -r ./docs/.vitepress/dist/. root@101.43.253.98:/data/website/note/jimo-note
+# scp -r ./docs/.vitepress/dist/. root@101.43.253.98:/data/website/note/jimo-note
