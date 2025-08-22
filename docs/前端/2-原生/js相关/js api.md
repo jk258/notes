@@ -4,41 +4,90 @@
 
 [Event.composedPath()](https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath)：获取元素路径判断
 
-## app和h5交互
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        width: 100px;
+        position: relative;
+      }
+      .options {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="toggle">toggle</button>
+      <div class="options"></div>
+    </div>
+
+    <script>
+      document.querySelector(".toggle").addEventListener("click", function (e) {
+        e.stopPropagation();
+        document.querySelector(".options").style.display = "block";
+      });
+      document.addEventListener("click", function (e) {
+        if (!e.composedPath().includes(document.querySelector(".container"))) {
+          document.querySelector(".options").style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
+```
+
+## app 和 h5 交互
+
 ### ios
+
 ```javascript
 window.webkit.messageHandlers.[事件名].postMessage(参数)
 ```
 
 ## 取色，滴管工具（EyeDropper）
 
+`EyeDropper` 接口表示一个拾色器工具的实例，用户可以打开并使用它从屏幕上选择颜色  
 文档：[https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper](https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper)
+注意：只有在**https**和本地**localhost**下才能使用
 
 ```html
 <button id="start-button">Open the eyedropper</button>
 <span id="result"></span>
 
 <script>
-	document.getElementById('start-button').addEventListener('click', () => {
-		const resultElement = document.getElementById('result')
+  document.getElementById("start-button").addEventListener("click", () => {
+    const resultElement = document.getElementById("result");
 
-		if (!window.EyeDropper) {
-			resultElement.textContent = 'Your browser does not support the EyeDropper API'
-			return
-		}
+    if (!window.EyeDropper) {
+      resultElement.textContent =
+        "Your browser does not support the EyeDropper API";
+      return;
+    }
 
-		const eyeDropper = new EyeDropper()
+    const eyeDropper = new EyeDropper();
 
-		eyeDropper
-			.open()
-			.then((result) => {
-				resultElement.textContent = result.sRGBHex
-				resultElement.style.backgroundColor = result.sRGBHex
-			})
-			.catch((e) => {
-				resultElement.textContent = e
-			})
-	})
+    eyeDropper
+      .open()
+      .then((result) => {
+        resultElement.textContent = result.sRGBHex;
+        resultElement.style.backgroundColor = result.sRGBHex;
+      })
+      .catch((e) => {
+        resultElement.textContent = e;
+      });
+  });
 </script>
 ```
 
