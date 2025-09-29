@@ -67,3 +67,12 @@ tiger.jpg JPEG 1280x853 1280x853+0+0 8-bit sRGB 279261B 0.000u 0:00.000
 ```
 magick mogrify -path ./out -resize 600x600 -format jpg -quality 85 -compress Zip *.png
 ```
+### pdf转图片
+```
+magick -density 300 1.pdf output.jpg # 每一页pdf都转为一张图片，如output-0.jpg...
+magick -density 300 1.pdf -append output.jpg #pdf的全部页数转为一张图片，output.jpg
+```
+### 图片合并pdf
+```
+magick *.jpg -page a4 all.pdf
+```
