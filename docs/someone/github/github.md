@@ -26,7 +26,7 @@
 - [EasyVideoTrans](https://github.com/sutro-planet/easyvideotrans)：着眼于从原始视频到翻译后最终视频的整个工作流程
 - [Video Processing Service](https://github.com/GeekyWizKid/video_processing_service)Video Processing Service 是一个用于自动化视频处理的服务，支持从视频中提取音频、生成字幕并将字幕嵌入到视频中的功能。
 ## 前端
-
+- [spoilerjs](https://github.com/shajidhasan/spoilerjs)：一个轻快小巧的网页组件，能实现带粒子效果的隐藏文字
 - [Plyr](https://github.com/sampotts/plyr)：Plyr 是一款简单、轻量级、可访问且可定制的 HTML5、YouTube 和 Vimeo 媒体播放器，支持现代浏览器。
 - [Text Search Engine](https://github.com/cjinhuo/text-search-engine/blob/master/docs/README_zh.md)：一个 JS 的模糊搜索库，具有中文拼音的模糊搜索等多种功能
 - [nsfwjs](https://github.com/infinitered/nsfwjs)：一个简单的 JavaScript 库，可帮助您快速识别不合时宜的图像;所有这些都在客户端的浏览器中。NSFWJS 并不完美，但它非常准确（小型型号为 ~90%，中型型号为 ~93%）......而且它一直在变得越来越准确。
